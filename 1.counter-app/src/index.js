@@ -1,15 +1,16 @@
 import React , { useState } from "react"; 
 import ReactDOM from "react-dom"; 
 
-
 function Button(props){
- const { handleClick } = props; 
+ 	const { onClickFunction, incrementBy } = props; 
+ 	const handleClick = () => onClickFunction(incrementBy); 
   
-  return (
-     <button onClick={ handleClick }>
-         +1
-     </button>
-  ); 
+
+ 	return (
+		<button onClick = { handleClick }>
+		 	+{incrementBy}
+		</button>
+  	); 
 }
 
 function Display(props) {
@@ -24,12 +25,14 @@ function Display(props) {
 
 function App() {
   const [counter, setCounter] = useState(0); 
-  const incrementCounter = ()=> setCounter(counter + 1);
+  const incrementCounter = (incrementValue) => setCounter(counter + incrementValue);
   
   return (
     <div>
-      <Button handleClick={incrementCounter}/>
-      <Display counter={counter}/>
+      <Button onClickFunction = {incrementCounter} incrementBy = {1}/>
+      <Button onClickFunction = {incrementCounter} incrementBy = {5}/>
+      <Button onClickFunction = {incrementCounter} incrementBy = {10}/>
+      <Display counter = {counter}/>
     </div>
   ); 
 }
